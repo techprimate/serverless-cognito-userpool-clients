@@ -1,0 +1,36 @@
+{
+  "name": "serverless-cognito-userpool-clients",
+  "version": "0.1.0",
+  "description": "A Serverless plugin to configure AWS Cognito User Pool clients.",
+  "keywords": [
+    "aws",
+    "cognito",
+    "serverless",
+    "plugin"
+  ],
+  "main": "dist",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "post-install": "tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techprimate/serverless-cognito-userpool-clients.git"
+  },
+  "author": "Philip Niedertscheider",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/techprimate/serverless-cognito-userpool-clients/issues"
+  },
+  "homepage": "https://github.com/techprimate/serverless-cognito-userpool-clients#readme",
+  "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/node": "^11.13.8",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "aws-sdk": "^2.445.0"
+  },
+  "peerDependencies": {
+    "aws-sdk": "^2.445.0"
+  }
+}
