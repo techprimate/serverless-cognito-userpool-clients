@@ -27,10 +27,6 @@ declare interface Serverless {
     log(message: string): null,
   };
 
-  config: {
-    cognitoClients: ISLSCognitoClient[],
-  };
-
   service: {
 
     provider: {
@@ -44,7 +40,7 @@ declare interface Serverless {
     }
 
     custom: {
-      warningThreshold: number,
+      cognitoClients: ISLSCognitoClient[],
     }
     resources: {
       Resources: Array<{

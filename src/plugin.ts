@@ -77,7 +77,7 @@ export class CognitoClientsPlugin {
     return names;
   }
 
-  public async get_aws_cognito_userpools() {
+  public async getAWSCognitoUserPools() {
     const userpools = [];
     const params: {
       MaxResults: number,
@@ -100,7 +100,7 @@ export class CognitoClientsPlugin {
           hasNext = false;
         }
       }).catch((error) => {
-        this.pluginLog(util.format('Error: %s, \'%s\'', error.code, error.message));
+        this.pluginLog(`Error: ${error.code}, \'${error.message}\'`);
       });
     }
     if (userpools.length === 0) {
@@ -134,7 +134,7 @@ export class CognitoClientsPlugin {
       return;
     }
     // get userpool strutures from aws
-    const userpools = await this.get_aws_cognito_userpools();
+    const userpools = await this.getAWSCognitoUserPools();
     if (!userpools) {
       this.pluginLog('no userpools on aws to be removed.');
       return;
@@ -178,12 +178,12 @@ export class CognitoClientsPlugin {
     this.pluginLog('afterDeploy started.');
     const userPoolIds = await this.getDeployedUserPoolIds();
     userPoolIds.forEach((userPool) => {
-      const resource = that.serverless.service.resources.Resources[userPool.name.substring(10)];
+      const resource = this.serverless.service.resources.Resources[userPool.name.substring(10)];
       const domain = resource.Properties.UserPoolName;
       userPool.domain = domain;
     });
     for (const userPool of userPoolIds) {
-      await that.create_userpool_domain(userPool.id, userPool.domain);
+      await this.createUserPoolDomain(userPool.id, userPool.domain);
     }
     this.pluginLog('afterDeploy finished.');
   }
@@ -311,11 +311,11 @@ export class CognitoClientsPlugin {
    * User Pool Domain CRUD
    */
 
-  private async createUserPoolDomain(userPoolId: string, domain: string, certificateArn: string) {
+  private async createUserPoolDomain(userPoolId: string, domain: string, certificateArn?: string) {
     const params: CognitoIdentityServiceProvider.Types.CreateUserPoolDomainRequest = {
-      CustomDomainConfig: {
+      CustomDomainConfig: (certificateArn) ? {
         CertificateArn: certificateArn,
-      },
+      } : undefined,
       Domain: domain,
       UserPoolId: userPoolId,
     };
