@@ -18,13 +18,6 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@types/aws-sdk@^2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@types/aws-sdk/-/aws-sdk-2.7.0.tgz#83588b3d14ebdca1d4ce5e023387577568ce82f3"
-  integrity sha1-g1iLPRTr3KHUzl4CM4dXdWjOgvM=
-  dependencies:
-    aws-sdk "*"
-
 "@types/node@^11.13.8":
   version "11.13.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
@@ -44,25 +37,10 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-aws-sdk@*:
-  version "2.445.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.445.0.tgz#30046be1d4b89c1ba5421514e7cfedf6b102e556"
-  integrity sha512-VontdYjQs7218Mw73IYIVhmbRlnHsbbNxuatOFgKvhFCWh4+ze4joM95ViKOUVofSWwlm1HmNasdhb2kOTg+MA==
-  dependencies:
-    buffer "4.9.1"
-    events "1.1.1"
-    ieee754 "1.1.8"
-    jmespath "0.15.0"
-    querystring "0.2.0"
-    sax "1.2.1"
-    url "0.10.3"
-    uuid "3.3.2"
-    xml2js "0.4.19"
-
-aws-sdk@^2.300.0:
-  version "2.446.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.446.0.tgz#91e0da0d216d0d540b34541df88d02d8605adc6d"
-  integrity sha512-xZ+KrHRrQWZLt/1NZ37pzkRbA1rDfryqvcBw5HanmHfO2d2dJJDzow/dfndd/dJyUVc3VvBLPZRW+ZVeFiLw1w==
+aws-sdk@^2.400.0:
+  version "2.447.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.447.0.tgz#9a483157e537663b1835698f9d5806679c04a9f7"
+  integrity sha512-bAnNeYJx8U/SGb0zo13YbYvOmHhN3h+3eagP+X7uVG5kmpJMsEpn1EqZJ/Jby7qEB/DQXFGFUzg5kLt//C37/g==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"

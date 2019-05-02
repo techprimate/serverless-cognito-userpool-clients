@@ -26,9 +26,8 @@
   },
   "homepage": "https://github.com/techprimate/serverless-cognito-userpool-clients#readme",
   "devDependencies": {
-    "@types/aws-sdk": "^2.7.0",
     "@types/node": "^11.13.8",
-    "aws-sdk": "^2.300.0",
+    "aws-sdk": "^2.400.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   },
