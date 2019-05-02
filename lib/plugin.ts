@@ -1,34 +1,27 @@
+import * as AWS from 'aws-sdk';
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
 import chalk from 'chalk';
 import { Serverless } from '../typings/serverless';
 import { ISLSCognitoClient } from './ISLSCognitoClient';
-import AWS = require('aws-sdk');
 
 export class CognitoClientsPlugin {
   public hooks: {};
   public provider: Serverless.Provider.Aws;
   public commands: {};
 
-  private readonly servicename: string;
   private readonly stage: string;
   private readonly region: string;
-  private readonly stackname: string;
-  private readonly cognitoIdp: AWS.CognitoIdentityServiceProvider;
 
   constructor(private serverless: Serverless) {
     this.serverless = serverless;
-    this.servicename = this.serverless.service.getServiceName();
 
     this.provider = this.serverless.getProvider('aws');
     this.stage = this.provider.getStage();
     this.region = this.provider.getRegion();
-    this.stackname = this.servicename + '-' + this.stage;
 
     AWS.config.update({
       region: this.region,
     });
-
-    this.cognitoIdp = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'});
 
     this.hooks = {
       'after:aws:package:finalize:mergeCustomProviderResources': this.addOutputs.bind(this),
@@ -119,11 +112,17 @@ export class CognitoClientsPlugin {
     if (!userPool.CustomDomain && !config.customDomain) { // no domain created nor given
       return;
     }
-    if (userPool.CustomDomain && !config.customDomain) { // Delete remote
+    if (!userPool.Id) {
+      throw new Error('User Pool has no id: ' + userPool);
+    }
+    if (userPool.CustomDomain && !config.customDomain) {// Delete remote
       await this.deleteUserPoolDomain(userPool.Id, userPool.CustomDomain);
     } else if (config.customDomain && !userPool.CustomDomain) { // Create remote
       await this.createUserPoolDomain(config.userPoolId, config.customDomain.name, config.customDomain.certificateArn);
     } else { // Update remote
+      if (!config.customDomain || !userPool.CustomDomain) {
+        return;
+      }
       if (userPool.CustomDomain !== config.customDomain.name) {
         await this.deleteUserPoolDomain(userPool.Id, userPool.CustomDomain);
         await this.createUserPoolDomain(config.userPoolId,
@@ -131,8 +130,10 @@ export class CognitoClientsPlugin {
           config.customDomain.certificateArn);
       } else {
         const userPoolDomain = await this.describeUserPoolDomain(config.customDomain.name);
-        if (userPoolDomain.CustomDomainConfig
-          && userPoolDomain.CustomDomainConfig.CertificateArn !== config.customDomain.certificateArn) {
+
+        if (userPoolDomain &&
+          userPoolDomain.CustomDomainConfig &&
+          userPoolDomain.CustomDomainConfig.CertificateArn !== config.customDomain.certificateArn) {
           await this.updateUserPoolDomain(
             config.userPoolId,
             config.customDomain.name,
@@ -176,6 +177,7 @@ export class CognitoClientsPlugin {
 
   private async addUserPoolIdToOutput(name: string, value: string) {
     const outputs = this.serverless.service.provider.compiledCloudFormationTemplate.Outputs;
+    // @ts-ignore
     outputs[name] = {
       Value: {
         Ref: value,
@@ -235,7 +237,8 @@ export class CognitoClientsPlugin {
     );
   }
 
-  private async describeUserPoolDomain(domain: string): Promise<CognitoIdentityServiceProvider.DomainDescriptionType> {
+  private async describeUserPoolDomain(domain: string): Promise<CognitoIdentityServiceProvider.DomainDescriptionType
+    | undefined> {
     const params: CognitoIdentityServiceProvider.Types.DescribeUserPoolDomainRequest = {
       Domain: domain,
     };

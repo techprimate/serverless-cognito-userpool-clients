@@ -1,4 +1,4 @@
-import { ISLSCognitoClient } from '../src/ISLSCognitoClient';
+import { ISLSCognitoClient } from '../lib/ISLSCognitoClient';
 
 declare namespace Serverless {
   interface Options {

@@ -1,16 +1,80 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true,
+    "charset": "utf8",
+    "checkJs": false,
+    "declaration": true,
+    "declarationMap": true,
+    "diagnostics": false,
+    "disableSizeLimit": false,
+    "downlevelIteration": true,
+    "emitBOM": true,
+    "emitDeclarationOnly": false,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+    "extendedDiagnostics": false,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "isolatedModules": false,
+    "keyofStringsOnly": true,
+    "lib": [
+      "es2018",
+      "es2018.promise",
+      "es2018.regexp"
+    ],
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "locale": "en",
+    "maxNodeModuleJsDepth": 0,
     "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "noEmitHelpers": false,
+    "noEmitOnError": false,
+    "noErrorTruncation": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "noImplicitUseStrict": false,
+    "noLib": false,
+    "noResolve": false,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
     "outDir": "./dist",
+    "preserveConstEnums": true,
+    "preserveSymlinks": false,
+    "preserveWatchOutput": false,
+    "removeComments": false,
+    "resolveJsonModule": false,
+    "rootDir": "./lib",
+    "skipLibCheck": false,
     "sourceMap": true,
-    "allowJs": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "suppressExcessPropertyErrors": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "target": "es2018",
+    "traceResolution": false,
     "typeRoots": [
-      "node_modules/@types",
-      "typings"
+      "./lib/typings",
+      "./node_modules/@types"
     ]
   },
-  "filesGlob": [
-    "**/*.ts"
+  "include": [
+    "lib/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib/**/*.spec.ts",
+    "dist"
   ]
 }
